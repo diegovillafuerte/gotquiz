@@ -2,6 +2,91 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import math
 app = Flask(__name__)
 
+
+def calculaPersonaje(response):
+	# Calculate Factor I Surgency or Extraversion
+	f1 = 0
+	f1 = f1 + int(response['p1'])
+	f1 = f1 - int(response['p6'])
+	f1 = f1 + int(response['p11'])
+	f1 = f1 - int(response['p16'])
+	f1 = math.floor((f1 + 8)*100/16)
+
+	# Calculate Factor II Agreeableness 
+	f2 = 0
+	f2 = f2 + int(response['p2'])
+	f2 = f2 - int(response['p7'])
+	f2 = f2 + int(response['p12'])
+	f2 = f2 - int(response['p17'])
+	f2 = math.floor((f2 + 8)*100/16)
+
+	# Calculate Factor III Conscientiousness
+	f3 = 0
+	f3 = f3 + int(response['p3'])
+	f3 = f3 - int(response['p8'])
+	f3 = f3 + int(response['p13'])
+	f3 = f3 - int(response['p18'])
+	f3 = math.floor((f3 + 8)*100/16)
+
+	# Calculate Factor IV Neuroticism
+	f4 = 0
+	f4 = f4 + int(response['p4'])
+	f4 = f4 - int(response['p9'])
+	f4 = f4 + int(response['p14'])
+	f4 = f4 - int(response['p19'])
+	f4 = math.floor((f4 + 8)*100/16)
+
+	# Calculate Factor V Intellect or Imagination
+	f5 = 0
+	f5 = f5 + int(response['p5'])
+	f5 = f5 - int(response['p10'])
+	f5 = f5 - int(response['p15'])
+	f5 = f5 - int(response['p20'])
+	f5 = math.floor((f5 + 14)*100/16)
+
+	resp = [f1, f2, f3, f4, f5]
+	redondeado = [str(round(i/100)) for i in resp]
+	print(redondeado)
+	res = ''.join(redondeado)
+	print(res)
+
+	personaje = 'White walker'
+	imagen = 'walker'
+
+	if res == '110100' or res == '11110' or res == '11000':
+		personaje = 'Tyrion Lannister'
+		imagen = 'tyrion'
+
+	elif res == '10100' or res == '01010' or res == '11001':
+		personaje = 'John Snow'
+		imagen = 'john'
+
+	elif res == '00011' or res == '00101' or res == '01001':
+		personaje = 'Daenerys Stormborn of House Targaryen, the First of Her Name, Queen of the Andals and the First Men, Protector of the Seven Kingdoms, the Mother of Dragons, the Khaleesi of the Great Grass Sea, the Unburnt, the Breaker of Chains'
+		imagen = 'daenerys'
+
+	elif res == '11100' or res == '01110' or res == '11001':
+		personaje = 'Lord Varys'
+		imagen = 'varys'
+
+	elif res == '00010' or res == '00001' or res == '00011':
+		personaje = 'Drogon'
+		imagen = 'drogon'
+
+	elif res == '00000' or res == '00101' or res == '00001':
+		personaje = 'King Joffrey I Baratheon'
+		imagen = 'jeoffrey'
+
+	elif res == '01001' or res == '00010' or res == '00100':
+		personaje = 'Cersei Lannister'
+		imagen = 'cersei'
+
+	elif res == '11011' or res == '11001' or res == '10110':
+		personaje = 'Arya Stark'
+		imagen = 'arya'
+	return personaje, imagen
+
+
 @app.route("/", methods=['GET', 'POST'])
 def bienvenida():
 	try:
@@ -20,86 +105,8 @@ def iniciaQuiz(name):
 	try:
 		if request.method  == 'POST':
 			response = request.form.to_dict()
-			# Calculate Factor I Surgency or Extraversion
-			f1 = 0
-			f1 = f1 + int(response['p1'])
-			f1 = f1 - int(response['p6'])
-			f1 = f1 + int(response['p11'])
-			f1 = f1 - int(response['p16'])
-			f1 = math.floor((f1 + 8)*100/16)
-
-			# Calculate Factor II Agreeableness 
-			f2 = 0
-			f2 = f2 + int(response['p2'])
-			f2 = f2 - int(response['p7'])
-			f2 = f2 + int(response['p12'])
-			f2 = f2 - int(response['p17'])
-			f2 = math.floor((f2 + 8)*100/16)
-
-			# Calculate Factor III Conscientiousness
-			f3 = 0
-			f3 = f3 + int(response['p3'])
-			f3 = f3 - int(response['p8'])
-			f3 = f3 + int(response['p13'])
-			f3 = f3 - int(response['p18'])
-			f3 = math.floor((f3 + 8)*100/16)
-
-			# Calculate Factor IV Neuroticism
-			f4 = 0
-			f4 = f4 + int(response['p4'])
-			f4 = f4 - int(response['p9'])
-			f4 = f4 + int(response['p14'])
-			f4 = f4 - int(response['p19'])
-			f4 = math.floor((f4 + 8)*100/16)
-
-			# Calculate Factor V Intellect or Imagination
-			f5 = 0
-			f5 = f5 + int(response['p5'])
-			f5 = f5 - int(response['p10'])
-			f5 = f5 - int(response['p15'])
-			f5 = f5 - int(response['p20'])
-			f5 = math.floor((f5 + 14)*100/16)
-
-			resp = [f1, f2, f3, f4, f5]
-			redondeado = [str(round(i/100)) for i in resp]
-			print(redondeado)
-			res = ''.join(redondeado)
-			print(res)
-
-			personaje = 'White walker'
-			imagen = 'walker'
-
-			if res == '110100' or res == '11110' or res == '11000':
-				personaje = 'Tyrion Lannister'
-				imagen = 'tyrion'
-
-			elif res == '10100' or res == '01010' or res == '11001':
-				personaje = 'John Snow'
-				imagen = 'john'
-
-			elif res == '00011' or res == '00101' or res == '01001':
-				personaje = 'Daenerys Stormborn of House Targaryen, the First of Her Name, Queen of the Andals and the First Men, Protector of the Seven Kingdoms, the Mother of Dragons, the Khaleesi of the Great Grass Sea, the Unburnt, the Breaker of Chains'
-				imagen = 'daenerys'
-
-			elif res == '11100' or res == '01110' or res == '11001':
-				personaje = 'Lord Varys'
-				imagen = 'varys'
-
-			elif res == '00010' or res == '00001' or res == '00011':
-				personaje = 'Drogon'
-				imagen = 'drogon'
-
-			elif res == '00000' or res == '00101' or res == '00001':
-				personaje = 'King Joffrey I Baratheon'
-				imagen = 'jeoffrey'
-
-			elif res == '01001' or res == '00010' or res == '00100':
-				personaje = 'Cersei Lannister'
-				imagen = 'cersei'
-
-			elif res == '11011' or res == '11001' or res == '10110':
-				personaje = 'Arya Stark'
-				imagen = 'arya'
+			personaje, imagen = calculaPersonaje(response)
+			
 			return redirect(url_for('finQuiz', name = name, personaje = personaje, imagen = imagen))
 		else:
 			return render_template("quiz.html", name = name)
