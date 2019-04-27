@@ -61,9 +61,11 @@ def iniciaQuiz(name):
 			f5 = math.floor((f5 + 14)*100/16)
 
 			resp = [f1, f2, f3, f4, f5]
-			redondeado = [str(round(i)) for i in resp]
-			res = string.join(redondeado)
-			
+			redondeado = [str(round(i/100)) for i in resp]
+			print(redondeado)
+			res = ''.join(redondeado)
+			print(res)
+
 			personaje = 'White walker'
 			imagen = 'walker'
 
@@ -100,7 +102,6 @@ def iniciaQuiz(name):
 				imagen = 'arya'
 			return redirect(url_for('finQuiz', name = name, personaje = personaje, imagen = imagen))
 		else:
-			print("Aquí toy")
 			return render_template("quiz.html", name = name)
 	except Exception as e:
 		print(e)
