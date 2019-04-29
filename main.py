@@ -44,6 +44,7 @@ def calculaPersonaje(response):
 	f5 = f5 - int(response['p20'])
 	f5 = math.floor((f5 + 14)*100/16)
 
+	# [Extraversion. agreeableness, Conscientiousness, Neuroticism]
 	resp = [f1, f2, f3, f4, f5]
 	redondeado = [str(round(i/100)) for i in resp]
 	print(redondeado)
@@ -85,7 +86,6 @@ def calculaPersonaje(response):
 		personaje = 'Arya Stark'
 		imagen = 'arya'
 	return personaje, imagen
-
 
 @app.route("/", methods=['GET', 'POST'])
 def bienvenida():
