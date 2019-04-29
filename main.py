@@ -90,11 +90,11 @@ def calculaPersonaje(response):
 		personaje = 'Sam tarly'
 		imagen = 'sam'
 
-	elif res == '10101' or res == '10100' or res = '00101':
+	elif res == '10101' or res == '10100' or res == '00101':
 		personaje = 'Lord Peter Baelish'
 		imagen = 'baelish'
 
-	elif res == '01111' or res == '01011' or res = '01010':
+	elif res == '01111' or res == '01011' or res == '01010':
 		personaje = 'Sansa Stark'
 		imagen = 'sansa'
 
