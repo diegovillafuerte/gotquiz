@@ -44,7 +44,7 @@ def calculaPersonaje(response):
 	f5 = f5 - int(response['p20'])
 	f5 = math.floor((f5 + 14)*100/16)
 
-	# [Extraversion. agreeableness, Conscientiousness, Neuroticism]
+	# [Extraversion. agreeableness, Conscientiousness, Neuroticism, Intelect]
 	resp = [f1, f2, f3, f4, f5]
 	redondeado = [str(round(i/100)) for i in resp]
 	print(redondeado)
@@ -54,37 +54,54 @@ def calculaPersonaje(response):
 	personaje = 'White walker'
 	imagen = 'walker'
 
-	if res == '110100' or res == '11110' or res == '11000':
+	if res == '11101' or res == '11001' or res == '11111':
 		personaje = 'Tyrion Lannister'
 		imagen = 'tyrion'
 
-	elif res == '10100' or res == '01010' or res == '11001':
-		personaje = 'John Snow'
+	elif res == '11000' or res == '01100':
+		personaje = 'Jon Snow'
 		imagen = 'john'
 
-	elif res == '00011' or res == '00101' or res == '01001':
+	elif res == '11110' or res == '11011' or res == '11010':
 		personaje = 'Daenerys Stormborn of House Targaryen, the First of Her Name, Queen of the Andals and the First Men, Protector of the Seven Kingdoms, the Mother of Dragons, the Khaleesi of the Great Grass Sea, the Unburnt, the Breaker of Chains'
 		imagen = 'daenerys'
 
-	elif res == '11100' or res == '01110' or res == '11001':
+	elif res == '00001':
 		personaje = 'Lord Varys'
 		imagen = 'varys'
 
-	elif res == '00010' or res == '00001' or res == '00011':
+	elif res == '10011' or res == '00100' or res == '00010':
 		personaje = 'Drogon'
 		imagen = 'drogon'
 
-	elif res == '00000' or res == '00101' or res == '00001':
+	elif res == '10010' or res == '00011':
 		personaje = 'King Joffrey I Baratheon'
 		imagen = 'jeoffrey'
 
-	elif res == '01001' or res == '00010' or res == '00100':
+	elif res == '10111' or res == '10110' or res == '10001':
 		personaje = 'Cersei Lannister'
 		imagen = 'cersei'
 
-	elif res == '11011' or res == '11001' or res == '10110':
+	elif res == '01110' or res == '01001' or res == '01000':
 		personaje = 'Arya Stark'
 		imagen = 'arya'
+
+	elif res == '11100' or res == '01101':
+		personaje = 'Sam tarly'
+		imagen = 'sam'
+
+	elif res == '10101' or res == '10100' or res = '00101':
+		personaje = 'Lord Peter Baelish'
+		imagen = 'baelish'
+
+	elif res == '01111' or res == '01011' or res = '01010':
+		personaje = 'Sansa Stark'
+		imagen = 'sansa'
+
+	elif res == '00110' or res == '00111':
+		personaje = 'Ramsay Bolton'
+		imagen = 'ramsay'
+
 	return personaje, imagen
 
 @app.route("/", methods=['GET', 'POST'])
